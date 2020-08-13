@@ -4,7 +4,28 @@ def merge(arrA, arrB):
     merged_arr = [0] * elements
 
     # Your code here
+    i = j = k = 0
 
+    while i < len(arrA) and j < len(arrB):
+        if arrA[i] < arrB[j]:
+            merged_arr[k] = arrA[i]
+            merged_arr[k+1] = arrB[j]
+            i += 1
+        else:
+            merged_arr[k] = arrB[j]
+            merged_arr[k+1] = arrA[i]
+            j += 1
+        k += 1
+
+    while i < len(arrA):
+        merged_arr[k] = arrA[i]
+        i += 1
+        k += 1
+    
+    while j < len(arrB):
+        merged_arr[k] = arrB[j]
+        j += 1
+        k += 1
 
     return merged_arr
 
@@ -13,31 +34,13 @@ def merge_sort(arr):
     # Your code here
     if len(arr) > 1:
         mid = len(arr) // 2
-        lefthalf = arr[:mid]
-        righthalf = arr[mid:]
+        left = arr[:mid]
+        right = arr[mid:]
 
-        merge_sort(lefthalf)
-        merge_sort(righthalf)
+        left = merge_sort(left)
+        right = merge_sort(right)
 
-        i=j=k=0
-        while i < len(lefthalf) and j < len(righthalf):
-            if lefthalf[i] < righthalf[j]:
-                arr[k] = lefthalf[i]
-                i +=1
-            else:
-                arr[k] = righthalf[j]
-                j += 1
-            k += 1
-
-        while i < len(lefthalf):
-            arr[k] = lefthalf[i]
-            i += 1
-            k += 1
-            
-        while j < len(righthalf):
-            arr[k] = righthalf[j]
-            j += 1
-            k += 1
+        arr = merge(left, right)
 
     return arr
 
